@@ -1,0 +1,30 @@
+{
+
+    "name": "dot/options",
+
+    "description": "The options module of dot/cms",
+
+    "keywords": ["dotcms", "framework", "laravel", "cms", "modules", "plugins"],
+
+    "license": "MIT",
+
+    "type": "package",
+
+    "require": {
+        "roumen/sitemap": "2.*",
+        "dot/platform": "*",
+        "dot/posts": "*"
+    },
+
+    "autoload": {
+        "psr-4": {
+            "Dot\\Options\\": "src"
+        }
+    },
+
+    "config": {
+        "preferred-install": "dist"
+    },
+
+    "minimum-stability" : "dev"
+}
