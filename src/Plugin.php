@@ -22,19 +22,6 @@ class Plugin extends \Dot\Platform\Plugin
         "plugins",
     ];
 
-    /**
-     * @return array
-     */
-    function info()
-    {
-
-        return [
-            "name" => "options",
-            "version" => "1.0",
-        ];
-
-    }
-
     function boot()
     {
 
