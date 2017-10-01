@@ -2,13 +2,13 @@
 
 namespace Dot\Options\Controllers;
 
-use Dot\Controller;
+use Dot\Platform\Controller;
 
-class SitemapController extends Controller {
+class SitemapController extends Controller
+{
 
-    public function update() {
-        //Sitemap::render("");
-        //return date(Config("date_format"), time());
+    public function update()
+    {
     }
 
 }

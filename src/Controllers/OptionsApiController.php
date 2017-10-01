@@ -2,14 +2,14 @@
 
 namespace Dot\Options\Controllers;
 
-use Illuminate\Http\Request;
-use Dot\ApiController;
 use Dot\Options\Models\Option;
+use Dot\Platform\APIController;
+use Illuminate\Http\Request;
 
 /**
  * Class OptionsApiController
  */
-class OptionsApiController extends ApiController
+class OptionsApiController extends APIController
 {
 
     /**

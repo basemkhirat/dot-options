@@ -2,7 +2,7 @@
 
 namespace Dot\Options\Models;
 
-use Dot\Model;
+use Dot\Platform\Model;
 
 class Option extends Model
 {

@@ -2,13 +2,12 @@
 
 namespace Dot\Options;
 
-use Roumen\Sitemap\SitemapServiceProvider;
-use Plugin;
-use Navigation;
 use Gate;
+use Navigation;
+use Roumen\Sitemap\SitemapServiceProvider;
 use URL;
 
-class OptionsPlugin extends Plugin
+class Plugin extends \Dot\Platform\Plugin
 {
 
     public $providers = [

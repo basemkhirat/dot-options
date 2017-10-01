@@ -2,16 +2,16 @@
 
 namespace Dot\Options\Controllers;
 
-use Dot\Controller;
-use Request;
-use Gate;
 use Dot;
-use Session;
-use Plugin;
 use Dot\Options\Models\Option;
-use Redirect;
-use View;
+use Dot\Platform\Controller;
 use File;
+use Gate;
+use Plugin;
+use Redirect;
+use Request;
+use Session;
+use View;
 
 
 class OptionsController extends Controller
@@ -31,7 +31,7 @@ class OptionsController extends Controller
     function index()
     {
 
-        if(! Gate::allows("options.general")){
+        if (!Gate::allows("options.general")) {
             Dot::forbidden();
         }
 
@@ -54,18 +54,19 @@ class OptionsController extends Controller
         return View::make("options::show", $this->data);
     }
 
-    function check_update(){
+    function check_update()
+    {
 
-        $version =  Dot::check();
+        $version = Dot::check();
 
-        if($version){
+        if ($version) {
 
             Option::store([
                 "latest_version" => $version->version
             ]);
 
             $this->data["version"] = $version->version;
-        }else{
+        } else {
             $this->data["version"] = false;
         }
 
@@ -76,7 +77,7 @@ class OptionsController extends Controller
     function seo()
     {
 
-        if(! Gate::allows("options.seo")){
+        if (!Gate::allows("options.seo")) {
             Dot::forbidden();
         }
 
@@ -113,7 +114,7 @@ class OptionsController extends Controller
     function social()
     {
 
-        if(! Gate::allows("options.social")){
+        if (!Gate::allows("options.social")) {
             Dot::forbidden();
         }
 
@@ -133,7 +134,7 @@ class OptionsController extends Controller
     function plugins()
     {
 
-        if(! Gate::allows("options.plugins")){
+        if (!Gate::allows("options.plugins")) {
             Dot::forbidden();
         }
 
@@ -229,7 +230,7 @@ class OptionsController extends Controller
     {
 
 
-        if(! Gate::allows("options.media")){
+        if (!Gate::allows("options.media")) {
             Dot::forbidden();
         }
 
@@ -248,7 +249,7 @@ class OptionsController extends Controller
             $options["resize_gradient_first_color"] = Request::get("resize_gradient_first_color", "#FFFFFF");
             $options["resize_gradient_second_color"] = Request::get("resize_gradient_second_color", "#000000");
 
-           // dd($options);
+            // dd($options);
 
             // background_color
             Option::store($options, "media");
