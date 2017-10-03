@@ -1,9 +1,7 @@
 <?php
 
-namespace Dot\Options\Migrations;
-
-use Schema;
 use Illuminate\Database\Migrations\Migration;
+use Dot\Options\Models\Option;
 
 /**
  * Class CreateOptionsTable

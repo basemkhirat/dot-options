@@ -7,10 +7,10 @@ use Navigation;
 use Roumen\Sitemap\SitemapServiceProvider;
 use URL;
 
-class Plugin extends \Dot\Platform\Plugin
+class Options extends \Dot\Platform\Plugin
 {
 
-    public $providers = [
+    protected $providers = [
         SitemapServiceProvider::class
     ];
 
@@ -24,6 +24,8 @@ class Plugin extends \Dot\Platform\Plugin
 
     function boot()
     {
+
+        parent::boot();
 
         Navigation::menu("sidebar", function ($menu) {
 
@@ -72,9 +74,5 @@ class Plugin extends \Dot\Platform\Plugin
                 $menu->make("options::dropmenu");
             }
         });
-
-
-        include __DIR__ . "/routes.php";
-
     }
 }
