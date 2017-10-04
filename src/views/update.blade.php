@@ -1,14 +1,14 @@
-<?php if($version){ ?>
+@if($version)
 
 <div class="alert alert-success">
     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-    <?php echo trans("options::options.version_available", ["version" => $version]); ?>
+    {{ trans("options::options.version_available", ["version" => $version]) }}
 </div>
 
 <br/>
 
 <div class="ibox-content" style="direction: ltr">
-    <h2 class="text-left "><?php echo trans("options::options.how_update") ?></h2>
+    <h2 class="text-left ">{{ trans("options::options.how_update") }}</h2>
 
     <small>First update your composer package</small>
     <ul class="todo-list m-t small-list">
@@ -25,12 +25,12 @@
     </ul>
 </div>
 
-<?php }else{ ?>
+@else
 
     <div class="alert alert-success">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
 
-        <?php echo trans("options::options.up_to_date"); ?>
+        {{ trans("options::options.up_to_date") }}
     </div>
 
-<?php } ?>
+@endif
