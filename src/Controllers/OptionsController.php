@@ -7,7 +7,6 @@ use Dot\Options\Models\Option;
 use Dot\Platform\Controller;
 use File;
 use Gate;
-use Plugin;
 use Redirect;
 use Request;
 use Session;
@@ -19,21 +18,9 @@ class OptionsController extends Controller
 
     protected $data = [];
 
-    function __construct()
-    {
-        parent::__construct();
-
-        $this->data["all_plugins"] = $plugins = Plugin::all();
-        $this->data["active_plugins"] = $active_plugins = Plugin::installed();
-        $this->data["available_plugins_count"] = count($plugins) - count($active_plugins);
-    }
 
     function index()
     {
-
-        if (!Gate::allows("options.general")) {
-            Dot::forbidden();
-        }
 
         if (Request::isMethod("post")) {
 
@@ -77,10 +64,6 @@ class OptionsController extends Controller
     function seo()
     {
 
-        if (!Gate::allows("options.seo")) {
-            Dot::forbidden();
-        }
-
         if (Request::isMethod("post")) {
 
             // creating sitemap directory if not exists
@@ -114,10 +97,6 @@ class OptionsController extends Controller
     function social()
     {
 
-        if (!Gate::allows("options.social")) {
-            Dot::forbidden();
-        }
-
         if (Request::isMethod("post")) {
 
             Option::store(Request::except("_token"));
@@ -131,108 +110,8 @@ class OptionsController extends Controller
         return View::make("options::social", $this->data);
     }
 
-    function plugins()
-    {
-
-        if (!Gate::allows("options.plugins")) {
-            Dot::forbidden();
-        }
-
-        if (Request::isMethod("post")) {
-
-            $active_plugins = array_keys(Request::get("plugins", []));
-
-            Storage::put("plugins", json_encode($active_plugins));
-
-            return Redirect::back()
-                ->with("message", trans("options::options.events.saved"));
-        }
-
-        $this->data["option_page"] = "plugins";
-
-        return View::make("options::plugins", $this->data);
-    }
-
-    function plugin($name, $status, $step = 1)
-    {
-
-        if ($step == 1) {
-
-            $path = PLUGINS_PATH . "/" . $name;
-
-            $class = Dot::getPluginClass($path);
-
-            $installed_plugins = Plugin::installedPaths();
-
-            try {
-
-                if ($status == 1) {
-
-                    $installed_plugins[] = $name;
-
-                } else {
-
-                    if (($key = array_search($name, $installed_plugins)) !== false) {
-                        unset($installed_plugins[$key]);
-                    }
-                }
-
-                // fix removed installed plugins folders
-                foreach ($installed_plugins as $key => $plugin) {
-                    if (!file_exists(PLUGINS_PATH . "/" . $plugin . "/" . Dot::getPluginClass($plugin) . ".php")) {
-                        unset($installed_plugins[$key]);
-                    }
-                }
-
-            } catch (Exception $error) {
-                // exception
-            }
-
-
-            Option::store([
-                "plugins" => json_encode(array_unique(array_values($installed_plugins)))
-            ]);
-
-            return Redirect::route("admin.plugins.activation", ["name" => $name, "status" => $status, "step" => 2]);
-
-
-        } elseif ($step == 2) {
-
-            try {
-
-                $plugin = Plugin::get($name);
-
-                if ($status == 1) {
-                    // installing
-                    $plugin->install();
-                } else {
-                    // uninstalling
-                    $plugin->uninstall();
-                }
-
-            } catch (Exception $error) {
-                // exception
-            }
-
-            if ($status == 1) {
-                $message = trans("options::options.events.installed");
-            } else {
-                $message = trans("options::options.events.uninstalled");
-            }
-
-            return Redirect::back()
-                ->with("message", $message);
-        }
-
-    }
-
     function media()
     {
-
-
-        if (!Gate::allows("options.media")) {
-            Dot::forbidden();
-        }
 
         if (Request::isMethod("post")) {
 

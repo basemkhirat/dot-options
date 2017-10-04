@@ -30,22 +30,10 @@
             <li <?php if ($option_page == "media") { ?>class="active"<?php } ?>><a  href="<?php echo route("admin.options.media"); ?>"><i class="fa fa-camera"></i> <span class="hidden-sm hidden-xs hidden-md"><?php echo trans("options::options.media") ?></span></a></li>
             <?php  } ?>
 
-
-            <?php if(Gate::allows("options.social")) { ?>
+                <?php if(Gate::allows("options.social")) { ?>
             <li <?php if ($option_page == "social") { ?>class="active"<?php } ?>><a  href="<?php echo route("admin.options.social"); ?>"><i class="fa fa-globe"></i>  <span class="hidden-sm hidden-xs hidden-md"><?php echo trans("options::options.social") ?></span></a></li>
             <?php } ?>
 
-            <?php if(Gate::allows("options.plugins")) { ?>
-
-                <li <?php if ($option_page == "plugins") { ?>class="active"<?php } ?>>
-                <a  href="<?php echo route("admin.options.plugins"); ?>"><i class="fa fa-puzzle-piece"></i>
-                    <span class="hidden-sm hidden-xs hidden-md">
-                        <?php echo trans("options::options.plugins") ?> <?php if($available_plugins_count != "0"){ ?>&nbsp;<span class="badge badge-primary"><?php echo $available_plugins_count; ?></span><?php } ?>
-                    </span>
-                </a>
-            </li>
-
-            <?php } ?>
         </ul>
     </div>
 </div>
