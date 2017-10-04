@@ -11,70 +11,69 @@
             @include("admin::partials.messages")
 
             <form action="" method="post">
-                <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>"/>
+                <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
                 <div class="row">
                     <div class="col-md-12">
 
 
-                        <?php if (count($all_plugins)) { ?>
+                        @if (count($all_plugins))
 
-                        <?php foreach ($all_plugins as $plugin) { ?>
+                        @foreach ($all_plugins as $plugin)
 
                         <div class="panel panel-plugin">
                             <div class="panel-body">
 
                                 <div class="row">
                                     <div class="col-lg-1 col-md-1 col-sm-1 hidden-xs text-center">
-                                        <i class="plugin-icon fa <?php echo $plugin->icon; ?>"></i>
+                                        <i class="plugin-icon fa {{ $plugin->icon }}"></i>
                                     </div>
 
                                     <div class="col-lg-10 col-md-10 col-sm-10">
                                         <label
-                                            for="<?php echo $plugin->path; ?>_status"><?php echo ucfirst($plugin->name); ?>
+                                            for="{{ $plugin->path }}_status">{{ ucfirst($plugin->name) }}
 
                                         </label>
 
-                                        <?php if ($plugin->description) { ?>
+                                        @if($plugin->description)
                                         <p>
-                                            <small><?php echo $plugin->description; ?></small>
+                                            <small>{{ $plugin->description }}</small>
                                         </p>
-                                        <?php } ?>
+                                        @endif
 
                                         <p class="plugin-control">
 
-                                            <?php if ($plugin->installed) { ?>
-                                            <a href="<?php echo route("admin.plugins.activation", ["name" => $plugin->path, "status" => 0]) ?>"
-                                               message="<?php echo trans("options::options.sure_uninstall_plugin", ["name" => $plugin->name]); ?>"
-                                               class="text-danger ask"><?php echo trans("options::options.uninstall"); ?></a>
-                                            <?php } else { ?>
-                                            <a href="<?php echo route("admin.plugins.activation", ["name" => $plugin->path, "status" => 1]) ?>"
+                                            @if ($plugin->installed)
+                                            <a href="{{ route("admin.plugins.activation", ["name" => $plugin->path, "status" => 0]) }}"
+                                               message="{{ trans("options::options.sure_uninstall_plugin", ["name" => $plugin->name]) }}"
+                                               class="text-danger ask">{{ trans("options::options.uninstall") }}</a>
+                                            @else
+                                            <a href="{{ route("admin.plugins.activation", ["name" => $plugin->path, "status" => 1]) }}"
                                                class="text-navy ask"
-                                               message="<?php echo trans("options::options.sure_install_plugin", ["name" => $plugin->path]); ?>"><?php echo trans("options::options.install"); ?></a>
-                                            <?php } ?>
+                                               message="{{ trans("options::options.sure_install_plugin", ["name" => $plugin->path]) }}">{{ trans("options::options.install") }}</a>
+                                            @endif
                                         </p>
                                     </div>
                                     <div class="col-lg-1 col-md-1 col-sm-1 hidden-xs text-right">
-                                        <div class="plugin-version"><?php echo $plugin->version; ?></div>
+                                        <div class="plugin-version">{{ $plugin->version }}</div>
                                     </div>
                                 </div>
                             </div>
 
                         </div>
-                        <?php } ?>
+                        @endforeach
 
-                        <?php } else { ?>
+                        @else
 
                         <div class="panel">
                             <div class="panel-body">
                                 <div>
                                     <i class="fa fa-puzzle-piece"></i>
-                                    &nbsp; <?php echo trans("options::options.no_plugins"); ?>
+                                    &nbsp; {{ trans("options::options.no_plugins") }}
                                 </div>
                             </div>
                         </div>
 
-
-                        <?php } ?>
+                        @endif
 
                     </div>
 
