@@ -30,27 +30,10 @@
             <li @if ($option_page == "media") class="active" @endif><a href="{{ route("admin.options.media") }}"><i class="fa fa-camera"></i> <span class="hidden-sm hidden-xs hidden-md">{{ trans("options::options.media") }}</span></a></li>
             @endif
 
-<<<<<<< HEAD
-                <?php if(Gate::allows("options.social")) { ?>
-            <li <?php if ($option_page == "social") { ?>class="active"<?php } ?>><a  href="<?php echo route("admin.options.social"); ?>"><i class="fa fa-globe"></i>  <span class="hidden-sm hidden-xs hidden-md"><?php echo trans("options::options.social") ?></span></a></li>
-            <?php } ?>
-
-=======
-
             @if(Gate::allows("options.social"))
             <li @if ($option_page == "social") class="active" @endif><a href="{{ route("admin.options.social") }}"><i class="fa fa-globe"></i>  <span class="hidden-sm hidden-xs hidden-md">{{ trans("options::options.social") }}</span></a></li>
             @endif
 
-            @if(Gate::allows("options.plugins"))
-                <li @if ($option_page == "plugins") class="active" @endif>
-                <a  href="{{ route("admin.options.plugins") }}"><i class="fa fa-puzzle-piece"></i>
-                    <span class="hidden-sm hidden-xs hidden-md">
-                        {{ trans("options::options.plugins") }} @if($available_plugins_count != "0") &nbsp;<span class="badge badge-primary">{{ $available_plugins_count }}</span>@endif
-                    </span>
-                </a>
-            </li>
-            @endif
->>>>>>> 425a8879983698cc3e3f5926ad2a37f3a1fc5e0b
         </ul>
     </div>
 </div>
