@@ -227,9 +227,6 @@
     <script>
         $(document).ready(function () {
 
-            $('.chosen-select').chosen();
-
-
             $(".check-update").click(function () {
 
                 var base = $(this);

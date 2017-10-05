@@ -16,24 +16,38 @@
     </div>
 
     <div class="col-lg-9 col-md-9 col-sm-8 col-xs-12">
+
         <ul class="nav nav-tabs option-tabs">
 
-            @if(Gate::allows("options.general"))
-            <li @if ($option_page == "main") class="active" @endif><a href="{{ route("admin.options.show") }}"><i class="fa fa-sliders"></i> <span class="hidden-sm hidden-xs hidden-md">{{ trans("options::options.main") }}</span></a></li>
-            @endif
+            @can("options.general")
+                <li @if ($option_page == "main") class="active" @endif><a href="{{ route("admin.options.show") }}"><i
+                                class="fa fa-sliders"></i> <span
+                                class="hidden-sm hidden-xs hidden-md">{{ trans("options::options.main") }}</span></a>
+                </li>
+            @endcan
 
-            @if(Gate::allows("options.seo"))
-            <li @if ($option_page == "seo") class="active" @endif><a href="{{ route("admin.options.seo") }}"><i class="fa fa-line-chart"></i> <span class="hidden-sm hidden-xs hidden-md">{{ trans("options::options.seo") }}</span></a></li>
-            @endif
+            @can("options.seo")
+                <li @if ($option_page == "seo") class="active" @endif><a href="{{ route("admin.options.seo") }}"><i
+                                class="fa fa-line-chart"></i> <span
+                                class="hidden-sm hidden-xs hidden-md">{{ trans("options::options.seo") }}</span></a>
+                </li>
+            @endcan
 
-            @if(Gate::allows("options.media"))
-            <li @if ($option_page == "media") class="active" @endif><a href="{{ route("admin.options.media") }}"><i class="fa fa-camera"></i> <span class="hidden-sm hidden-xs hidden-md">{{ trans("options::options.media") }}</span></a></li>
-            @endif
+            @can("options.media")
+                <li @if ($option_page == "media") class="active" @endif><a href="{{ route("admin.options.media") }}"><i
+                                class="fa fa-camera"></i> <span
+                                class="hidden-sm hidden-xs hidden-md">{{ trans("options::options.media") }}</span></a>
+                </li>
+            @endcan
 
-            @if(Gate::allows("options.social"))
-            <li @if ($option_page == "social") class="active" @endif><a href="{{ route("admin.options.social") }}"><i class="fa fa-globe"></i>  <span class="hidden-sm hidden-xs hidden-md">{{ trans("options::options.social") }}</span></a></li>
-            @endif
+            @can("options.social")
+                <li @if ($option_page == "social") class="active" @endif><a
+                            href="{{ route("admin.options.social") }}"><i class="fa fa-globe"></i> <span
+                                class="hidden-sm hidden-xs hidden-md">{{ trans("options::options.social") }}</span></a>
+                </li>
+            @endcan
 
         </ul>
+
     </div>
 </div>

@@ -150,8 +150,6 @@
                 <script>
                     $(document).ready(function () {
 
-                        $('.chosen-select').chosen();
-
                         $("#mytags").tagit({
                             singleField: true,
                             singleFieldNode: $('#tags_names'),

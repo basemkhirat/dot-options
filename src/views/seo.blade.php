@@ -289,9 +289,6 @@
         <script>
             $(document).ready(function () {
 
-
-                $('.chosen-select').chosen();
-
                 var elems = Array.prototype.slice.call(document.querySelectorAll('.option-switcher'));
                 elems.forEach(function (html) {
                     var switchery = new Switchery(html, {size: 'small'});

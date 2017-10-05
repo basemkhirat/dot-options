@@ -15,63 +15,62 @@
                 <div class="row">
                     <div class="col-md-12">
 
-
                         @if (count($all_plugins))
 
-                        @foreach ($all_plugins as $plugin)
+                            @foreach ($all_plugins as $plugin)
 
-                        <div class="panel panel-plugin">
-                            <div class="panel-body">
+                                <div class="panel panel-plugin">
+                                    <div class="panel-body">
 
-                                <div class="row">
-                                    <div class="col-lg-1 col-md-1 col-sm-1 hidden-xs text-center">
-                                        <i class="plugin-icon fa {{ $plugin->icon }}"></i>
+                                        <div class="row">
+                                            <div class="col-lg-1 col-md-1 col-sm-1 hidden-xs text-center">
+                                                <i class="plugin-icon fa {{ $plugin->icon }}"></i>
+                                            </div>
+
+                                            <div class="col-lg-10 col-md-10 col-sm-10">
+                                                <label
+                                                        for="{{ $plugin->path }}_status">{{ ucfirst($plugin->name) }}
+
+                                                </label>
+
+                                                @if($plugin->description)
+                                                    <p>
+                                                        <small>{{ $plugin->description }}</small>
+                                                    </p>
+                                                @endif
+
+                                                <p class="plugin-control">
+
+                                                    @if ($plugin->installed)
+                                                        <a href="{{ route("admin.plugins.activation", ["name" => $plugin->path, "status" => 0]) }}"
+                                                           message="{{ trans("options::options.sure_uninstall_plugin", ["name" => $plugin->name]) }}"
+                                                           class="text-danger ask">{{ trans("options::options.uninstall") }}</a>
+                                                    @else
+                                                        <a href="{{ route("admin.plugins.activation", ["name" => $plugin->path, "status" => 1]) }}"
+                                                           class="text-navy ask"
+                                                           message="{{ trans("options::options.sure_install_plugin", ["name" => $plugin->path]) }}">{{ trans("options::options.install") }}</a>
+                                                    @endif
+                                                </p>
+                                            </div>
+                                            <div class="col-lg-1 col-md-1 col-sm-1 hidden-xs text-right">
+                                                <div class="plugin-version">{{ $plugin->version }}</div>
+                                            </div>
+                                        </div>
                                     </div>
 
-                                    <div class="col-lg-10 col-md-10 col-sm-10">
-                                        <label
-                                            for="{{ $plugin->path }}_status">{{ ucfirst($plugin->name) }}
-
-                                        </label>
-
-                                        @if($plugin->description)
-                                        <p>
-                                            <small>{{ $plugin->description }}</small>
-                                        </p>
-                                        @endif
-
-                                        <p class="plugin-control">
-
-                                            @if ($plugin->installed)
-                                            <a href="{{ route("admin.plugins.activation", ["name" => $plugin->path, "status" => 0]) }}"
-                                               message="{{ trans("options::options.sure_uninstall_plugin", ["name" => $plugin->name]) }}"
-                                               class="text-danger ask">{{ trans("options::options.uninstall") }}</a>
-                                            @else
-                                            <a href="{{ route("admin.plugins.activation", ["name" => $plugin->path, "status" => 1]) }}"
-                                               class="text-navy ask"
-                                               message="{{ trans("options::options.sure_install_plugin", ["name" => $plugin->path]) }}">{{ trans("options::options.install") }}</a>
-                                            @endif
-                                        </p>
-                                    </div>
-                                    <div class="col-lg-1 col-md-1 col-sm-1 hidden-xs text-right">
-                                        <div class="plugin-version">{{ $plugin->version }}</div>
-                                    </div>
                                 </div>
-                            </div>
-
-                        </div>
-                        @endforeach
+                            @endforeach
 
                         @else
 
-                        <div class="panel">
-                            <div class="panel-body">
-                                <div>
-                                    <i class="fa fa-puzzle-piece"></i>
-                                    &nbsp; {{ trans("options::options.no_plugins") }}
+                            <div class="panel">
+                                <div class="panel-body">
+                                    <div>
+                                        <i class="fa fa-puzzle-piece"></i>
+                                        &nbsp; {{ trans("options::options.no_plugins") }}
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
                         @endif
 
