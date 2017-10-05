@@ -11,9 +11,9 @@
     "type": "package",
 
     "require": {
-        "roumen/sitemap": "2.*",
-        "dot/platform": "*",
-        "dot/posts": "*"
+        "dot/platform": "0.4",
+        "dot/posts": "*",
+        "roumen/sitemap": "2.*"
     },
 
     "autoload": {
