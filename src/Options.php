@@ -31,7 +31,7 @@ class Options extends \Dot\Platform\Plugin
             if (Auth::user()->can("options")) {
 
                 $menu->item('options', trans("admin::common.settings"), "")
-                    ->order(9)
+                    ->order(30)
                     ->icon("fa-cogs");
 
                 if (Auth::user()->can("options.general")) {
