@@ -151,7 +151,7 @@
                                                         <span> {{ trans("options::options.dot_version") }}
                                                             : </span>
                                                         <h2 class="font-bold"
-                                                            style="font-family: sans-serif,Verdana, Arial">{{ DOT_VERSION }}</h2>
+                                                            style="font-family: sans-serif,Verdana, Arial">{{ Plugin::get("admin")->getVersion() }}</h2>
                                                     </div>
 
                                                     <div class="col-xs-4 text-center">
