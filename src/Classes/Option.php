@@ -5,6 +5,7 @@ namespace Dot\Options\Classes;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Schema;
 
 /**
  * Class Option
@@ -44,11 +45,11 @@ class Option
          * Load all system options from database
          */
         try {
-
-            foreach (DB::table("options")->get() as $option) {
-                self::$options[$option->name] = $option->value;
+            if (Schema::hasTable("options")) {
+                foreach (DB::table("options")->get() as $option) {
+                    self::$options[$option->name] = $option->value;
+                }
             }
-
         } catch (QueryException $exception) {
             abort(400, "Dot Platform is not installed");
         }
@@ -163,7 +164,7 @@ class Option
             Event::fire($name . ".options");
         }
 
-        if(count(self::$pages)){
+        if (count(self::$pages)) {
             self::$pages = collect(self::$pages)->where("views", "!=", [])->toArray();
         }
 
