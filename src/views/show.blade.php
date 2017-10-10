@@ -13,7 +13,7 @@
                 </h2>
                 <ol class="breadcrumb ">
                     <li>
-                        <a href="{{ URL::to(ADMIN . "/options") }}">{{ trans("options::options.options") }}</a>
+                        <a href="{{ route("admin.options") }}">{{ trans("options::options.options") }}</a>
                     </li>
                     <li class="active">
                         <strong>{{ $option_page->title }}</strong>
