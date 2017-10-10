@@ -2,25 +2,37 @@
 
 namespace Dot\Options;
 
+use Dot\Options\Facades\Option;
 use Illuminate\Support\Facades\Auth;
 use Navigation;
-use Roumen\Sitemap\SitemapServiceProvider;
 use URL;
 
+/**
+ * Class Options
+ * @package Dot\Options
+ */
 class Options extends \Dot\Platform\Plugin
 {
 
-    protected $providers = [
-        SitemapServiceProvider::class
+    /**
+     * Plugin permissions
+     * @var array
+     */
+    protected $permissions = [
+        "manage"
     ];
 
-    public $permissions = [
-        "general",
-        "seo",
-        "media",
-        "social"
+    /**
+     * Plugin aliases
+     * @var array
+     */
+    protected $aliases = [
+        'Option' => \Dot\Options\Facades\Option::class
     ];
 
+    /**
+     * Boot the plugin
+     */
     function boot()
     {
 
@@ -28,43 +40,42 @@ class Options extends \Dot\Platform\Plugin
 
         Navigation::menu("sidebar", function ($menu) {
 
-            if (Auth::user()->can("options")) {
+            if(Auth::user()->can("options.manage")) {
 
                 $menu->item('options', trans("admin::common.settings"), "")
                     ->order(30)
                     ->icon("fa-cogs");
 
-                if (Auth::user()->can("options.general")) {
-                    $menu->item('options.main', trans("options::options.main"), URL::to(ADMIN . '/options'))
-                        ->icon("fa-sliders");
+                foreach (Option::pages() as $page) {
+
+                    $menu->item('options.' . $page->name, $page->title, route("admin.options", ["page" => $page->name]))
+                        ->icon($page->icon);
+
                 }
 
-                if (Auth::user()->can("options.seo")) {
-                    $menu->item('options.seo', trans("options::options.seo"), URL::to(ADMIN . '/options/seo'))
-                        ->icon("fa-line-chart");
-                }
-
-                if (Auth::user()->can("options.media")) {
-                    $menu->item('options.media', trans("options::options.media"), URL::to(ADMIN . '/options/media'))
-                        ->icon("fa-camera");
-                }
-
-                if (Auth::user()->can("options.social")) {
-                    $menu->item('options.social', trans("options::options.social"), URL::to(ADMIN . '/options/social'))
-                        ->icon("fa-globe");
-                }
             }
 
         });
 
         Navigation::menu("topnav", function ($menu) {
-            $menu->make("options::locales");
-        });
-
-        Navigation::menu("topnav", function ($menu) {
-            if (Auth::user()->can("options.general")) {
+            if (Auth::user()->can("options.manage")) {
                 $menu->make("options::dropmenu");
             }
+        });
+
+        require_once $this->getPath('helpers.php');
+    }
+
+
+    /**
+     * Register some classes
+     */
+    function register()
+    {
+        parent::register();
+
+        $this->app->bind("option", function () {
+            return new \Dot\Options\Classes\Option();
         });
     }
 }

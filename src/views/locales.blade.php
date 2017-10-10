@@ -1,4 +1,4 @@
-@if(count(Config::get("admin.locales")) > 1)
+@if(count(config("admin.locales")) > 1)
     <li class="dropdown">
         <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#" aria-expanded="false">
             {{ strtoupper(Config::get("app.locale")) }}
@@ -11,7 +11,6 @@
                         <a href="{{ url("locale?lang=" . $code) }}">
                             {{ $lang["title"] }}
                         </a>
-
                     </li>
                 @endif
             @endforeach

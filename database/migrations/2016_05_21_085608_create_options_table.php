@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Migrations\Migration;
-use Dot\Options\Models\Option;
+use Dot\Options\Facades\Option;
 
 /**
  * Class CreateOptionsTable
@@ -26,8 +26,8 @@ class CreateOptionsTable extends Migration
         "date_format" => "relative",
         "site_logo" => "",
         "media.allowed_file_types" => "jpg,png,jpeg,bmp,gif,zip,doc,docx,rar,zip,pdf,txt,csv,xls",
-        "media.max_file_size" => "512000",  // 500 MB
-        "media.max_width" => "2500",     // 2500px
+        "media.max_file_size" => "512000",
+        "media.max_width" => "2500",
         "media.cropping" => "0",
         "media.resize_mode" => "resize_crop",
         "media.watermarking" => "0",
@@ -100,10 +100,7 @@ class CreateOptionsTable extends Migration
         ksort($this->defaults);
 
         foreach ($this->defaults as $name => $value) {
-            $option = new Option();
-            $option->name = $name;
-            $option->value = $value;
-            $option->save();
+            Option::set($name, $value);
         }
 
     }
