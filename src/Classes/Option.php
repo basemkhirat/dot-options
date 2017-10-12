@@ -5,7 +5,6 @@ namespace Dot\Options\Classes;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Event;
-use Illuminate\Support\Facades\Schema;
 
 /**
  * Class Option
@@ -45,17 +44,23 @@ class Option
     function __construct()
     {
 
-        /**
-         * Load all system options from database
-         */
+        // Load all system options from database
+
         try {
-            if (Schema::hasTable("options")) {
-                foreach (DB::table("options")->get() as $option) {
-                    self::$options[$option->name] = $option->value;
-                }
+
+            foreach (DB::table("options")->get() as $option) {
+                self::$options[$option->name] = $option->value;
             }
+
         } catch (QueryException $exception) {
-            // Skip any errors before platform install
+
+            // Skip all errors before platform install in console environment
+
+            if(!app()->runningInConsole()){
+                return response("<b>Dot Platform</b> is not installed.<br/> please install using the artisan command:
+                    <br/> <pre>$ php artisan dot:install</pre>")->send();
+            }
+
         }
     }
 
