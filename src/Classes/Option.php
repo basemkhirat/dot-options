@@ -20,20 +20,24 @@ class Option
      */
     public static $pages = [];
 
-
     /**
+     * List of option pages
      * @var array
      */
     public static $all = [];
 
+    /**
+     * The option page object
+     * @var object
+     */
     public static $page;
-
 
     /**
      * System options
      * @var array
      */
     public static $options = [];
+
 
     /**
      * Option constructor.
@@ -51,7 +55,7 @@ class Option
                 }
             }
         } catch (QueryException $exception) {
-            abort(400, "Dot Platform is not installed");
+            // Skip any errors before platform install
         }
     }
 
