@@ -18,11 +18,5 @@
         "psr-4": {
             "Dot\\Options\\": "src"
         }
-    },
-
-    "config": {
-        "preferred-install": "dist"
-    },
-
-    "minimum-stability" : "dev"
+    }
 }
