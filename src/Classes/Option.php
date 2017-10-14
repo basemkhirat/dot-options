@@ -4,6 +4,7 @@ namespace Dot\Options\Classes;
 
 use Dot\Options\Models\Option as OptionModel;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Event;
 
 /**
@@ -35,7 +36,7 @@ class Option
      * System options
      * @var array
      */
-    public static $options = [];
+    public static $options;
 
 
     /**
@@ -48,16 +49,18 @@ class Option
 
         // Load all system options from database
 
-        $this->load();
-    }
-
-    public function load()
-    {
-
         try {
 
-            if (count(self::$options) == 0) {
-                self::$options = OptionModel::all();
+            if (is_null(self::$options)) {
+
+                self::$options = new Collection();
+
+                $options = OptionModel::all();
+
+                if (count($options)) {
+                    self::$options = OptionModel::all();
+                }
+
             }
 
         } catch (QueryException $exception) {
@@ -70,8 +73,8 @@ class Option
             }
 
         }
-
     }
+
 
     /**
      * Get all options
