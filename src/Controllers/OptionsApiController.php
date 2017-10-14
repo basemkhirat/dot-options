@@ -41,7 +41,7 @@ class OptionsApiController extends APIController
 
         $query = Option::orderBy($sort_by, $sort_direction);
 
-        if ($request->has("q")) {
+        if ($request->filled("q")) {
             $query->search($request->get("q"));
         }
 
@@ -66,11 +66,11 @@ class OptionsApiController extends APIController
     function create(Request $request)
     {
 
-        if (!$request->has("name")) {
+        if (!$request->filled("name")) {
             return $this->error("Missing option name");
         }
 
-        if (!$request->has("value")) {
+        if (!$request->filled("value")) {
             return $this->error("Missing option value for " . $request->name);
         }
 
@@ -91,11 +91,11 @@ class OptionsApiController extends APIController
     function update(Request $request)
     {
 
-        if (!$request->has("name")) {
+        if (!$request->filled("name")) {
             return $this->error("Missing option name");
         }
 
-        if (!$request->has("value")) {
+        if (!$request->filled("value")) {
             return $this->error("Missing option value");
         }
 
@@ -121,7 +121,7 @@ class OptionsApiController extends APIController
     function destroy(Request $request)
     {
 
-        if (!$request->has("name")) {
+        if (!$request->filled("name")) {
             return $this->error("Missing option name");
         }
 

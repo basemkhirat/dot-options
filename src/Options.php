@@ -75,7 +75,7 @@ class Options extends \Dot\Platform\Plugin
         parent::register();
 
         $this->app->bind("option", function () {
-            return new \Dot\Options\Classes\Option();
+            return new \Dot\Options\Classes\Option($this->app);
         });
     }
 }

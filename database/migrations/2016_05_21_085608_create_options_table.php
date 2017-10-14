@@ -20,6 +20,7 @@ class CreateOptionsTable extends Migration
             $table->increments('id');
             $table->string('name')->index();
             $table->text("value")->nullable();
+            $table->text("lang")->nullable();
         });
     }
 

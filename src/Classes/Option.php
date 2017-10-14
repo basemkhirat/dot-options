@@ -2,8 +2,8 @@
 
 namespace Dot\Options\Classes;
 
+use Dot\Options\Models\Option as OptionModel;
 use Illuminate\Database\QueryException;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Event;
 
 /**
@@ -41,27 +41,53 @@ class Option
     /**
      * Option constructor.
      */
-    function __construct()
+    function __construct($app)
     {
+
+        $this->app = $app;
 
         // Load all system options from database
 
+        $this->load();
+    }
+
+    public function load()
+    {
+
         try {
 
-            foreach (DB::table("options")->get() as $option) {
-                self::$options[$option->name] = $option->value;
+            if (count(self::$options) == 0) {
+
+                ///if ($this->app->cache->has("platform.options")) {
+                //dd($this->app->cache->get("platform.options")->toArray());
+                //   self::$options = $this->app->cache->get("platform.options");
+                //} else {
+                self::$options = OptionModel::all();
+                //     $this->app->cache->put("platform.options", self::$options, 999);
+                // }
+
             }
 
         } catch (QueryException $exception) {
 
             // Skip all errors before platform install in console environment
 
-            if(!app()->runningInConsole()){
+            if (!app()->runningInConsole()) {
                 return response("<b>Dot Platform</b> is not installed.<br/> please install using the artisan command:
                     <br/> <pre>$ php artisan dot:install</pre>")->send();
             }
 
         }
+
+    }
+
+    /**
+     * Get all options
+     * @return bool
+     */
+    public function all()
+    {
+        return self::$options;
     }
 
     /**
@@ -71,7 +97,15 @@ class Option
      */
     public function has($name)
     {
-        return array_key_exists($name, self::$options);
+
+        $option = $option = self::$options->where("name", $name)
+            ->whereIn("lang", [$this->app->getLocale(), NULL])->count();
+
+        if ($option) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -82,40 +116,104 @@ class Option
      */
     public function get($name, $default = NULL)
     {
-        return array_key_exists($name, self::$options) ? self::$options[$name] : $default;
+
+        $option = $option = self::$options->where("name", $name)
+            ->whereIn("lang", [$this->app->getLocale(), NULL])->first();
+
+        if ($option) {
+            return $option->value;
+        }
+
+        return $default;
     }
+
+
+    /**
+     * Add new option
+     * @param $name
+     * @param null $value
+     * @param int $isLocalized
+     */
+    public function add($name, $value = NULL, $isLocalized = 0)
+    {
+
+        $option = new OptionModel();
+
+        $option->name = $name;
+        $option->value = $value;
+        $option->lang = $isLocalized ? $this->app->getLocale() : NULL;
+
+        $option->save();
+
+        self::$options->push($option);
+    }
+
 
     /**
      * Create or update options
      * @param $name
      * @param null $value
+     * @param int $isLocalized
      */
-    public function set($name, $value = NULL)
+    public function set($name, $value = NULL, $isLocalized = 0)
     {
 
-        if (array_key_exists($name, self::$options)) {
+        if ($option = self::$options->where("name", $name)
+            ->whereIn("lang", [NULL, $this->app->getLocale()])->first()) {
 
-            if (self::$options[$name] != $value) {
+            $option->value = $value;
 
-                self::$options[$name] = $value;
+            $option->save();
 
-                // Sync changes with database
+            if ($option->is_localized) {
 
-                DB::table("options")->where("name", $name)->update(["value" => $value]);
+                // Option is exist as a localized option
+                // We will update its value
+
+                self::$options = self::$options->map(function ($option) use ($name, $value) {
+
+                    if ($option->name == $name and $option->lang == $this->app->getLocale()) {
+                        $option->value = $value;
+                    }
+
+                    return $option;
+                });
+
+
+            } else {
+
+                // Option is exist as a non localized option
+                // We will update its value
+
+                self::$options = self::$options->map(function ($option) use ($name, $value) {
+
+                    if ($option->name == $name and $option->lang == NULL) {
+                        $option->value = $value;
+                    }
+
+                    return $option;
+                });
+
             }
+
+        } elseif ($option = self::$options->where("name", $name)
+            ->whereNotIn("lang", [NULL, $this->app->getLocale()])->first()) {
+
+            // Option is not exist in current locale
+            // We will add add it to current locale
+
+            $this->add($name, $value, $option->is_localized);
 
         } else {
 
-            self::$options[$name] = $value;
 
-            // Sync changes with database
+            // Option is not exist any more
+            // We will add it
 
-            DB::table("options")->insert([
-                "name" => $name,
-                "value" => $value
-            ]);
+            $this->add($name, $value, $isLocalized);
 
         }
+
     }
 
     /**
@@ -125,14 +223,15 @@ class Option
     public function delete($name)
     {
 
-        if (array_key_exists($name, self::$options)) {
+        self::$options = self::$options->reject(function ($option) use ($name) {
+            return $option->name == $name;
+        });
 
-            unset(self::$options[$name]);
+        // Sync changes with database
+        // Deleting the default and localized options
 
-            // Sync changes with database
+        OptionModel::where("name", $name)->delete();
 
-            DB::table("options")->where("name", $name)->delete();
-        }
     }
 
     public function page($name, $callback = false)
@@ -144,7 +243,7 @@ class Option
 
         Event::listen($name . '.options', function () use ($name, $callback) {
 
-            self::$page = new self();
+            self::$page = new self($this->app);
 
             self::$page->name = $name;
             self::$page->title = "";
