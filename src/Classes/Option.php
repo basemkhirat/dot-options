@@ -57,15 +57,7 @@ class Option
         try {
 
             if (count(self::$options) == 0) {
-
-                ///if ($this->app->cache->has("platform.options")) {
-                //dd($this->app->cache->get("platform.options")->toArray());
-                //   self::$options = $this->app->cache->get("platform.options");
-                //} else {
                 self::$options = OptionModel::all();
-                //     $this->app->cache->put("platform.options", self::$options, 999);
-                // }
-
             }
 
         } catch (QueryException $exception) {
