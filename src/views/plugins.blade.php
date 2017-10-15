@@ -81,7 +81,7 @@
         </div>
     </form>
 
-    @push("header")
+    @section("head")
 
         <style>
             .plugin-icon {
@@ -102,8 +102,8 @@
             }
         </style>
 
-    @endpush
-    @push("footer")
+    @stop
+    @section("footer")
 
         <script>
             $(document).ready(function () {
@@ -113,5 +113,5 @@
                 });
             });
         </script>
-    @endpush
+    @stop
 @stop
