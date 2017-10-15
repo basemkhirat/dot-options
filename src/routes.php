@@ -13,7 +13,6 @@ Route::group([
     $route->group(["prefix" => "options"], function ($route) {
 
 
-
         foreach (Option::pages() as $page) {
             $route->any('/{page?}', ["as" => "admin.options", "uses" => "OptionsController@index"]);
         }

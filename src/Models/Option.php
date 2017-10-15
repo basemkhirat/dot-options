@@ -3,7 +3,6 @@
 namespace Dot\Options\Models;
 
 use Dot\Platform\Model;
-use Illuminate\Support\Facades\Cache;
 
 /**
  * Class Option
@@ -13,28 +12,17 @@ class Option extends Model
 {
 
     /**
-     * @var string
-     */
-    protected $table = "options";
-
-    /**
      * @var bool
      */
     public $timestamps = false;
-
     /**
      * @var bool
      */
     public $incrementing = false;
-
     /**
-     * is_localized attribute
-     * @return bool
+     * @var string
      */
-    public function getIsLocalizedAttribute()
-    {
-        return !in_array($this->lang, [NULL, ""]);
-    }
+    protected $table = "options";
 
     /**
      * Delete options cache on deleting and saving
@@ -52,6 +40,15 @@ class Option extends Model
             //Cache::forget("platform.options");
 
         });
+    }
+
+    /**
+     * is_localized attribute
+     * @return bool
+     */
+    public function getIsLocalizedAttribute()
+    {
+        return !in_array($this->lang, [NULL, ""]);
     }
 
 

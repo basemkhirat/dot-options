@@ -6,6 +6,7 @@
  * @param null $default
  * @return mixed
  */
-function option($name, $default = NULL){
+function option($name, $default = NULL)
+{
     return \Dot\Options\Facades\Option::get($name, $default);
 }

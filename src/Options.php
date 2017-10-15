@@ -40,7 +40,7 @@ class Options extends \Dot\Platform\Plugin
 
         Navigation::menu("sidebar", function ($menu) {
 
-            if(Auth::user()->can("options.manage")) {
+            if (Auth::user()->can("options.manage")) {
 
                 $menu->item('options', trans("admin::common.settings"), "")
                     ->order(30)

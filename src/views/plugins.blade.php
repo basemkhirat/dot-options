@@ -29,7 +29,7 @@
 
                                             <div class="col-lg-10 col-md-10 col-sm-10">
                                                 <label
-                                                        for="{{ $plugin->path }}_status">{{ ucfirst($plugin->name) }}
+                                                    for="{{ $plugin->path }}_status">{{ ucfirst($plugin->name) }}
 
                                                 </label>
 

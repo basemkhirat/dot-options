@@ -122,28 +122,6 @@ class Option
         return $default;
     }
 
-
-    /**
-     * Add new option
-     * @param $name
-     * @param null $value
-     * @param int $isLocalized
-     */
-    public function add($name, $value = NULL, $isLocalized = 0)
-    {
-
-        $option = new OptionModel();
-
-        $option->name = $name;
-        $option->value = $value;
-        $option->lang = $isLocalized ? $this->app->getLocale() : NULL;
-
-        $option->save();
-
-        self::$options->push($option);
-    }
-
-
     /**
      * Create or update options
      * @param $name
@@ -209,6 +187,26 @@ class Option
 
         }
 
+    }
+
+    /**
+     * Add new option
+     * @param $name
+     * @param null $value
+     * @param int $isLocalized
+     */
+    public function add($name, $value = NULL, $isLocalized = 0)
+    {
+
+        $option = new OptionModel();
+
+        $option->name = $name;
+        $option->value = $value;
+        $option->lang = $isLocalized ? $this->app->getLocale() : NULL;
+
+        $option->save();
+
+        self::$options->push($option);
     }
 
     /**
