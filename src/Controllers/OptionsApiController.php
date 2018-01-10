@@ -6,13 +6,13 @@ use Dot\Options\Models\Option;
 use Dot\Platform\APIController;
 use Illuminate\Http\Request;
 
-/**
+/*
  * Class OptionsApiController
  */
 class OptionsApiController extends APIController
 {
 
-    /**
+    /*
      * OptionsApiController constructor.
      */
     function __construct(Request $request)
@@ -21,7 +21,7 @@ class OptionsApiController extends APIController
         $this->middleware("permission:options");
     }
 
-    /**
+    /*
      * List posts
      * @param string $name (optional) The option name.
      * @param string $q (optional) The search query string.
@@ -57,7 +57,7 @@ class OptionsApiController extends APIController
     }
 
 
-    /**
+    /*
      * Create a new option
      * @param string $name (required) The option name.
      * @param string $value (required) The post value.
@@ -82,7 +82,7 @@ class OptionsApiController extends APIController
 
     }
 
-    /**
+    /*
      * Update an option
      * @param string $name (required) The option name.
      * @param string $value (optional) The option value.
@@ -113,7 +113,7 @@ class OptionsApiController extends APIController
 
     }
 
-    /**
+    /*
      * Delete post by id
      * @param int $name (required) The option name.
      * @return \Illuminate\Http\JsonResponse

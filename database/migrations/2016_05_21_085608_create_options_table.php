@@ -2,13 +2,13 @@
 
 use Illuminate\Database\Migrations\Migration;
 
-/**
+/*
  * Class CreateOptionsTable
  */
 class CreateOptionsTable extends Migration
 {
 
-    /**
+    /*
      * Run the migrations.
      *
      * @return void
@@ -24,7 +24,7 @@ class CreateOptionsTable extends Migration
         });
     }
 
-    /**
+    /*
      * Reverse the migrations.
      *
      * @return void

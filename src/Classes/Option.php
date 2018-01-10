@@ -7,39 +7,39 @@ use Illuminate\Database\QueryException;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Event;
 
-/**
+/*
  * Class Option
  * @package Dot\Platform\Classes
  */
 class Option
 {
 
-    /**
+    /*
      * Option pages
      * @var array
      */
     public static $pages = [];
 
-    /**
+    /*
      * List of option pages
      * @var array
      */
     public static $all = [];
 
-    /**
+    /*
      * The option page object
      * @var object
      */
     public static $page;
 
-    /**
+    /*
      * System options
      * @var array
      */
     public static $options;
 
 
-    /**
+    /*
      * Option constructor.
      */
     function __construct($app)
@@ -76,7 +76,7 @@ class Option
     }
 
 
-    /**
+    /*
      * Get all options
      * @return bool
      */
@@ -85,7 +85,7 @@ class Option
         return self::$options;
     }
 
-    /**
+    /*
      * Check option name is exists
      * @param $name
      * @return bool
@@ -103,7 +103,7 @@ class Option
         return false;
     }
 
-    /**
+    /*
      * Get option value by name
      * @param $name
      * @param null $default
@@ -122,7 +122,7 @@ class Option
         return $default;
     }
 
-    /**
+    /*
      * Create or update options
      * @param $name
      * @param null $value
@@ -189,7 +189,7 @@ class Option
 
     }
 
-    /**
+    /*
      * Add new option
      * @param $name
      * @param null $value
@@ -209,7 +209,7 @@ class Option
         self::$options->push($option);
     }
 
-    /**
+    /*
      * Delete option by name
      * @param $name
      */
@@ -272,7 +272,7 @@ class Option
         return self::$pages;
     }
 
-    /**
+    /*
      * Set name of page
      * @param string $name
      * @return mixed
@@ -283,7 +283,7 @@ class Option
         return self::$page;
     }
 
-    /**
+    /*
      * Set title of page
      * @param string $title
      * @return mixed
@@ -294,7 +294,7 @@ class Option
         return self::$page;
     }
 
-    /**
+    /*
      * Set icon of page
      * @param string $icon
      * @return mixed
@@ -305,7 +305,7 @@ class Option
         return self::$page;
     }
 
-    /**
+    /*
      * Set page order
      * @param int $order
      * @return mixed
@@ -316,7 +316,7 @@ class Option
         return self::$page;
     }
 
-    /**
+    /*
      * Set page permission
      * @param string $permission
      * @return mixed
@@ -327,7 +327,7 @@ class Option
         return self::$page;
     }
 
-    /**
+    /*
      * Set page view
      * @param $view
      * @param array $payload

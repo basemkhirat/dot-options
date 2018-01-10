@@ -4,27 +4,27 @@ namespace Dot\Options\Models;
 
 use Dot\Platform\Model;
 
-/**
+/*
  * Class Option
  * @package Dot\Options\Models
  */
 class Option extends Model
 {
 
-    /**
+    /*
      * @var bool
      */
     public $timestamps = false;
-    /**
+    /*
      * @var bool
      */
     public $incrementing = false;
-    /**
+    /*
      * @var string
      */
     protected $table = "options";
 
-    /**
+    /*
      * Delete options cache on deleting and saving
      */
     public static function boot()
@@ -42,7 +42,7 @@ class Option extends Model
         });
     }
 
-    /**
+    /*
      * is_localized attribute
      * @return bool
      */

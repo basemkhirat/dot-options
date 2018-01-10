@@ -13,21 +13,21 @@ use Request;
 use Session;
 use View;
 
-/**
+/*
  * Class OptionsController
  * @package Dot\Options\Controllers
  */
 class OptionsController extends Controller
 {
 
-    /**
+    /*
      * View payload
      * @var array
      */
     protected $data = [];
 
 
-    /**
+    /*
      * Render the option page
      * @param $page
      * @return mixed

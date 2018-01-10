@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * Get option value by name
  * @param $name
  * @param null $default
