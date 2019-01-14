@@ -7,14 +7,14 @@ use Illuminate\Support\Facades\Auth;
 use Navigation;
 use URL;
 
-/*
+/**
  * Class Options
  * @package Dot\Options
  */
 class Options extends \Dot\Platform\Plugin
 {
 
-    /*
+    /**
      * Plugin permissions
      * @var array
      */
@@ -22,7 +22,7 @@ class Options extends \Dot\Platform\Plugin
         "manage"
     ];
 
-    /*
+    /**
      * Plugin aliases
      * @var array
      */
@@ -30,7 +30,7 @@ class Options extends \Dot\Platform\Plugin
         'Option' => \Dot\Options\Facades\Option::class
     ];
 
-    /*
+    /**
      * Boot the plugin
      */
     function boot()
@@ -67,7 +67,7 @@ class Options extends \Dot\Platform\Plugin
     }
 
 
-    /*
+    /**
      * Register some classes
      */
     function register()
