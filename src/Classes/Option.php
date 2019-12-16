@@ -262,7 +262,7 @@ class Option
     {
 
         foreach (self::$all as $name) {
-            Event::fire($name . ".options");
+            Event::dispatch($name . ".options");
         }
 
         if (count(self::$pages)) {
