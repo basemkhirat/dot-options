@@ -5,7 +5,6 @@ namespace Dot\Options;
 use Dot\Options\Facades\Option;
 use Illuminate\Support\Facades\Auth;
 use Navigation;
-use URL;
 
 /**
  * Class Options
