@@ -18,19 +18,3 @@ Route::group([
         }
     });
 });
-
-/*
- * API
- */
-Route::group([
-    "prefix" => API,
-    "middleware" => ["auth:api"],
-    "namespace" => "Dot\\Options\\Controllers"
-], function ($route) {
-    $route->get("/options/show", "OptionsApiController@show");
-    $route->post("/options/create", "OptionsApiController@create");
-    $route->post("/options/update", "OptionsApiController@update");
-    $route->post("/options/destroy", "OptionsApiController@destroy");
-});
-
-

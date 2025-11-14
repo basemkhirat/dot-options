@@ -1,5 +1,6 @@
 {
     "name": "dot/options",
+    "version": "0.1.5",
     "description": "The options plugin of dot/platform",
     "keywords": [
         "framework",
