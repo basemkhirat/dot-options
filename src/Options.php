@@ -4,7 +4,7 @@ namespace Dot\Options;
 
 use Dot\Options\Facades\Option;
 use Illuminate\Support\Facades\Auth;
-use Navigation;
+use Dot\Platform\Facades\Navigation;
 
 /**
  * Class Options
