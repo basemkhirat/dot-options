@@ -2,16 +2,16 @@
 
 namespace Dot\Options\Controllers;
 
-use Dot;
+use Dot\Platform\Facades\Dot;
 use Dot\Options\Facades\Option;
 use Dot\Platform\Controller;
 use Dot\Platform\Facades\Action;
-use File;
-use Gate;
-use Redirect;
-use Request;
-use Session;
-use View;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\View;
 
 /**
  * Class OptionsController
